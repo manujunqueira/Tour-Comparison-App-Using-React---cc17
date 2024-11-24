@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+
 function Gallery(){ // Sets up a state variable to hold the fetched gallery data
     const [gallery, setGallery] = useState([]);
     const [information, setInformation] = useState(false);
@@ -24,33 +26,45 @@ function Gallery(){ // Sets up a state variable to hold the fetched gallery data
 
         function handleInterest(id){ // button used to remove tours 
             setGallery(gallery.filter(tour => tour.id !== id));
+            console.log(`Tour ${id} Removed`)
         };
 
 
           // Return JSX for rendering the gallery
     return ( // remove tour button and levels of interest on types of tours
-        <table>
-        <h1>Tour Management Gallery</h1>
-        <hr></hr>
-        <dl>
-                {gallery.map(gall => (
-                   <dt key={gall.id}>
-                   <h2>{gall.name}</h2>
-                   <dd>Price: ${gall.price}</dd>
-                   <dd> 
-                       {information ? gall.info : `${gall.info.substring(0,250)}...`}
-                       <button onClick={() => setInformation(!information)}>
-                           {information ? "Show Less" : "Read More"}
-                       </button>
-                   </dd>
-                   <dd><img src={gall.image} alt= "tour" /></dd>
-                   <br></br>
-                   <button onClick={() => handleInterest(gall.id)}>Not Interested</button>
-                   <br></br>
-               </dt>
-           ))}
-           </dl>
-        </table>
+       <div>
+             <h1>Tour Management Gallery</h1>
+
+             {gallery.map(gall => (
+                   <table key={gall.id}>
+                   {/* Grabs image */}
+                   <center><tr><div className = "polaroid"><img src={gall.image} alt= {`Tour ${gall.id}`} />
+                   
+                   <div className = "container">
+                       <h2>{gall.name}</h2>
+                   </div>
+                   </div></tr></center>
+                   <center>
+                       <tr><td>Price:</td>
+                       <td>${gall.price}</td></tr>
+                   </center>
+                   {/* Button for toggling more/less information */}
+                   <tr>
+                   {information ? gall.info : `${gall.info.substring(0,250)}...`}
+                            <button onClick={() => setInformation(!information)}>
+                                {information ? "Show Less" : "Read More"}
+                            </button>
+                            </tr>
+                      
+                        
+                      <br></br>
+                      <tr><button onClick={() => handleInterest(gall.id)}>Not Interested</button></tr>
+                        <hr></hr>
+                    </table>
+                      ))}
+                      
+       </div>
+       
     );
 }
         
