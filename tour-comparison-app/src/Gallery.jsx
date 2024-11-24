@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import Button from "./components/Button";
 
 function Gallery(){ // Sets up a state variable to hold the fetched gallery data
     const [gallery, setGallery] = useState([]);
@@ -33,11 +33,11 @@ function Gallery(){ // Sets up a state variable to hold the fetched gallery data
           // Return JSX for rendering the gallery
     return ( // remove tour button and levels of interest on types of tours
        <div>
-             <h1>Tour Management Gallery</h1>
+             <h1>Tour Comparison App </h1>
 
              {gallery.map(gall => (
-                   <table key={gall.id}>
-                   {/* Grabs image */}
+                   <div key={gall.id}>
+                 
                    <center><tr><div className = "polaroid"><img src={gall.image} alt= {`Tour ${gall.id}`} />
                    
                    <div className = "container">
@@ -45,22 +45,16 @@ function Gallery(){ // Sets up a state variable to hold the fetched gallery data
                    </div>
                    </div></tr></center>
                    <center>
-                       <tr><td>Price:</td>
-                       <td>${gall.price}</td></tr>
-                   </center>
-                   {/* Button for toggling more/less information */}
-                   <tr>
-                   {information ? gall.info : `${gall.info.substring(0,250)}...`}
-                            <button onClick={() => setInformation(!information)}>
-                                {information ? "Show Less" : "Read More"}
-                            </button>
-                            </tr>
+                   <h3><b>Price:</b> ${gall.price}</h3>                  
+                    </center>
+               
+                   <Button key={gall.id} {...gall}/>
                       
                         
                       <br></br>
-                      <tr><button onClick={() => handleInterest(gall.id)}>Not Interested</button></tr>
-                        <hr></hr>
-                    </table>
+                      <button onClick={() => handleInterest(gall.id)}>Not Interested</button>                   
+                     <hr></hr>
+                    </div>
                       ))}
                       
        </div>
